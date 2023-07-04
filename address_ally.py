@@ -1,6 +1,6 @@
 # Import the required libraries
 
-
+import yaml
 import pyperclip
 from geopy import distance, OpenCage
 import time
@@ -8,11 +8,29 @@ import re
 import os
 from opencage.geocoder import OpenCageGeocode
 from opencage.geocoder import InvalidInputError, RateLimitExceededError, UnknownError
-OPEN_CAGE_API_KEY = "API_KEY"
-USERLOACTION = "ORT"
 
+def load_config():
+    with open('config.yaml', 'r') as config_file:
+        try:
+            config = yaml.safe_load(config_file)
+        except yaml.YAMLError as error:
+            print(error)
+            return None
+
+    opencage_api_key = config.get('opencage_api', None)
+    user_location = config.get('user_location', None)
+
+    if opencage_api_key is None or user_location is None:
+        print("Could not find necessary keys in the config file.")
+        return None
+
+    return opencage_api_key, user_location
+
+# load config
+api_key, user_loc = load_config()
+if api_key and user_loc:
 # Create an instance of the OpenCage geocoder
-geocoder = OpenCageGeocode(OPEN_CAGE_API_KEY)
+    geocoder = OpenCageGeocode(api_key)
 
 def get_origin_coordinates(address):
     """Geokodierung der Ursprungsadresse
@@ -105,7 +123,13 @@ def clear_console():
     os.system('cls')
 
 
+
+
+
+
+
 if __name__ == '__main__':
+
 
     # print welcome message
     print("")
@@ -121,7 +145,7 @@ if __name__ == '__main__':
     # clear console
     clear_console()
     # get user input
-    origin = USERLOACTION
+    origin = user_loc
     destination = input("Adresse suchen: ")
     # get address
     address = get_address(origin, destination)
