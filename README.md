@@ -28,7 +28,7 @@ You can find the requirements.txt in the project root.
 
 For Windows users, I provide ready-to-use releases in .exe format. No installation is necessary for these releases. You can download the latest release here.
 
-Edit the config.yaml file to your needs, get an api key from [https://opencagedata.com/](opencage)
+Edit the config.yaml file to your needs, get an api key from [opencage](https://opencagedata.com/)
 
 ```bash
 opencage_api: YOUR_API_KEY
@@ -49,4 +49,4 @@ Then you can select to copy those address values to your clipboard
 ## Credits
 
 ### Icon
-icon from [https://www.seekpng.com/ipng/u2q8y3y3y3e6t4a9_hot-spots-comments-address-icon-vector/](iocn)
+icon from [Icon](https://www.seekpng.com/ipng/u2q8y3y3y3e6t4a9_hot-spots-comments-address-icon-vector/)
