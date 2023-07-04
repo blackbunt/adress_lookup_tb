@@ -45,3 +45,8 @@ python3 address_ally.py
 
 After executing the script, you will be prompted to enter an address. The script will then search for the address and display it in DIN 5008 format.
 Then you can select to copy those address values to your clipboard
+
+## Credits
+
+### Icon
+icon from [https://www.seekpng.com/ipng/u2q8y3y3y3e6t4a9_hot-spots-comments-address-icon-vector/](iocn)
