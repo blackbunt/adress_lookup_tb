@@ -17,6 +17,7 @@ Additionally, you will need to install a few Python packages:
 - pyperclip
 - geopy
 - opencage
+- pyYAML
 
 You can install the necessary packages using pip:
 
@@ -27,6 +28,13 @@ You can find the requirements.txt in the project root.
 
 For Windows users, I provide ready-to-use releases in .exe format. No installation is necessary for these releases. You can download the latest release here.
 
+Edit the config.yaml file to your needs, get an api key from [https://opencagedata.com/](opencage)
+
+```bash
+opencage_api: YOUR_API_KEY
+user_location: YOUR_LOCATION
+```
+
 ## Usage
 
 Execute the script in your console and follow the instructions on the screen:
@@ -36,3 +44,4 @@ python3 address_ally.py
 ```
 
 After executing the script, you will be prompted to enter an address. The script will then search for the address and display it in DIN 5008 format.
+Then you can select to copy those address values to your clipboard
