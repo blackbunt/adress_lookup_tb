@@ -49,4 +49,4 @@ Then you can select to copy those address values to your clipboard
 ## Credits
 
 ### Icon
-icon from [Icon](https://www.seekpng.com/ipng/u2q8y3y3y3e6t4a9_hot-spots-comments-address-icon-vector/)
+icon from [seekpng.com](https://www.seekpng.com/ipng/u2q8y3y3y3e6t4a9_hot-spots-comments-address-icon-vector/)
