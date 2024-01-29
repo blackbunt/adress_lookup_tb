@@ -10,7 +10,7 @@ from opencage.geocoder import OpenCageGeocode
 from opencage.geocoder import InvalidInputError, RateLimitExceededError, UnknownError
 
 def load_config():
-    with open('config.yaml', 'r') as config_file:
+    with open('config.yaml', 'r', encoding='utf-8') as config_file:
         try:
             config = yaml.safe_load(config_file)
         except yaml.YAMLError as error:
