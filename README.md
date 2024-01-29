@@ -18,6 +18,9 @@ Additionally, you will need to install a few Python packages:
 - geopy
 - opencage
 - pyYAML
+- PyQt5
+- PyQTWebEngine
+- folium
 
 You can install the necessary packages using pip:
 
