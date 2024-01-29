@@ -48,17 +48,26 @@ def get_origin_coordinates(address):
 
 def get_destination_coordinates(address, origin_coordinates):
     """Geokodierung der Zieladresse, suche nach der Zieladresse mit Berücksichtigung der Nähe zum Ursprung
-   :param origin_coordinates:
-   :param address: Adresse des Ziels
-   :return: Koordinaten des Ziels, formatierte Adresse des Ziels
-   """
-    # Suche nach der Zieladresse mit Berücksichtigung der Nähe zum Ursprung
-    results = geocoder.geocode(address, proximity=origin_coordinates)
-    formatted_target_address = results[0]['formatted']
-    # print(formatted_target_address)
-    # Extrahieren der Koordinaten des ersten Ergebnisses
-    target_coordinates = (results[0]['geometry']['lat'], results[0]['geometry']['lng'])
-    return target_coordinates, formatted_target_address
+       :param origin_coordinates:
+       :param address: Adresse des Ziels
+       :return: Koordinaten des Ziels, formatierte Adresse des Ziels
+       """
+    try:
+        # Suche nach der Zieladresse mit Berücksichtigung der Nähe zum Ursprung
+        results = geocoder.geocode(address, proximity=origin_coordinates)
+
+        if results:
+            # Extrahieren der Koordinaten des ersten Ergebnisses
+            formatted_target_address = results[0]['formatted']
+            target_coordinates = (results[0]['geometry']['lat'], results[0]['geometry']['lng'])
+            return target_coordinates, formatted_target_address
+        else:
+            print("Keine Ergebnisse gefunden für:", address)
+            return None, None
+    except Exception as e:
+        print(f"Fehler bei der Geokodierung: {e}")
+        return None, None
+
 
 
 def clean_with_regex(address):
@@ -101,10 +110,12 @@ def get_address(origin, destination):
     try:
         start_coord, start_address = get_origin_coordinates(origin)
         end_coord, end_address = get_destination_coordinates(destination, start_coord)
-        address = clean_with_regex(end_address)
+
         if end_address == start_address:
             raise InvalidInputError('Origin and destination address are identical')
-        return address
+        end_address = clean_with_regex(end_address)
+        start_address = clean_with_regex(start_address)
+        return end_address, start_address, end_coord, start_coord
     except (InvalidInputError, RateLimitExceededError, UnknownError) as e:
         print("Fehler beim Abrufen der Adresse:", e)
     except Exception as e:
@@ -130,7 +141,7 @@ def clear_console():
 
 if __name__ == '__main__':
 
-
+    clear_console()
     # print welcome message
     print("")
     print(" █████╗ ██████╗ ██████╗ ██████╗ ███████╗███████╗███████╗         █████╗ ██╗     ██╗  ██╗   ██╗")
@@ -143,19 +154,21 @@ if __name__ == '__main__':
     # pause for 1.5 seconds
     time.sleep(1.5)
     # clear console
+
     clear_console()
+    print('Willkommen bei AddressAlly!\n')
+    print('Dieses Programm hilft Ihnen dabei, nach Adressen zu suchen und die Ergebnisse bequem zu kopieren.\n')
+    print('Bitte folgen Sie den Anweisungen auf dem Bildschirm.\n')
     # get user input
     origin = user_loc
     destination = input("Adresse suchen: ")
     # get address
     address = get_address(origin, destination)
-    street_name, street_number, plz, city = address
+
+    street_name, street_number, plz, city = address[0]
     # print(f'{street_name} {street_number}\n{plz} {city}')
     # print on first run
-    clear_console()
-    print('Willkommen bei AddressAlly!\n')
-    print('Dieses Programm hilft Ihnen dabei, nach Adressen zu suchen und die Ergebnisse bequem zu kopieren.\n')
-    print('Bitte folgen Sie den Anweisungen auf dem Bildschirm.\n')
+
 
 
 
@@ -169,7 +182,7 @@ if __name__ == '__main__':
             print("4. PLZ kopieren")
             print("5. Stadt kopieren\n")
             print("6. neue Eingabe\n")
-            print("7. Programm beenden")
+            print("7. Programm beenden\n")
             auswahl = int(input("Auswahl: "))
             if auswahl == 1:
                 copy_to_clipboard(f'{street_name} {street_number}\n{plz} {city}')
@@ -187,6 +200,7 @@ if __name__ == '__main__':
                 copy_to_clipboard(f'{city}')
                 print("Stadt kopiert!")
             elif auswahl == 6:
+                clear_console()
                 destination = input("Adresse suchen: ")
                 address = get_address(origin, destination)
                 street_name, street_number, plz, city = address
