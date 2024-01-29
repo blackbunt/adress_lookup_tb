@@ -2,3 +2,6 @@ PyYAML~=6.0.1
 pyperclip~=1.8.2
 geopy~=2.4.1
 opencage~=2.4.0
+folium~=0.15.1
+PyQt5~=5.15.10
+PyQTWebEngine~=5.15.6
